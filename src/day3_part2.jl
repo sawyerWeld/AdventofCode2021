@@ -1,48 +1,37 @@
-lines = readlines("inputs/03.txt")
-nums = [[parse(Int64, l) for l in line] for line in lines]
-all_digits = [0,0,0,0,0,0,0,0,0,0,0,0]
-cur_dig = 1
-for digit in 1:12
-  sum = 0
-  for digits in nums
-    sum += digits[digit]
-  end
-  signal = (sum/length(nums)) >= .5 ? 1 : 0
-  if sum/length(nums) == .5
-    signal = 1
-  end
+nums = [[parse(Int64, l) for l in line] for line in readlines("inputs/03.txt")]
 
-  filter!(x -> x[digit]==signal,nums)
+function day3(nums)
+  nums_backup = copy(nums)
+  oxygen_vec = 0
+  for digit in 1:12
+    Σ = sum(map(x -> x[digit], nums) / length(nums))
+    signal = Σ >= 0.5 ? 1 : 0
+    signal = Σ/length(nums) == .5 ? 1 : signal
 
-  if length(nums) == 1
-    for x in nums[1]
-      print(x)
+    filter!(x -> x[digit]==signal,nums)
+
+    if length(nums) == 1
+      oxygen_vec = nums[1]
+      break
     end
-    println()
   end
+
+  nums = nums_backup
+  co2_vec = 0
+  for digit in 1:12
+    Σ = sum(map(x -> x[digit], nums) / length(nums))
+    signal = Σ >= 0.5 ? 0 : 1
+    signal = Σ/length(nums) == .5 ? 0 : signal
+    
+    filter!(x -> x[digit]==signal,nums)
+
+    if length(nums) == 1
+      co2_vec = nums[1]
+      break
+    end
+  end
+
+  return parse(Int64,join(oxygen_vec),base=2) * parse(Int64,join(co2_vec),base=2)
 end
 
-
-lines = readlines("inputs/03.txt")
-nums = [[parse(Int64, l) for l in line] for line in lines]
-all_digits = [0,0,0,0,0,0,0,0,0,0,0,0]
-cur_dig = 1
-for digit in 1:12
-  sum = 0
-  for digits in nums
-    sum += digits[digit]
-  end
-  signal = (sum/length(nums)) >= .5 ? 0 : 1
-  if sum/length(nums) == .5
-    signal = 0
-  end
-
-  filter!(x -> x[digit]==signal,nums)
-
-  if length(nums) == 1
-    for x in nums[1]
-      print(x)
-    end
-    println()
-  end
-end
+println(day3(nums))
