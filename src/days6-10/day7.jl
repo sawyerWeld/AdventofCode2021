@@ -1,7 +1,6 @@
 nums = map(str -> [parse(Int,str[l]) for l in findall(r"[[:digit:]]+", str)], readlines("inputs/6-10/07.txt"))[1]
 using Statistics
 
-sum_to(n) = n*(n+1) / 2
 
 function part1(nums)
   med = Statistics.median(nums)
@@ -11,6 +10,9 @@ function part1(nums)
   end
   t
 end
+
+
+sum_to(n) = n*(n+1) / 2
 
 function part2(nums)
   best = typemax(Int)
@@ -34,7 +36,7 @@ function part2faster(nums)
   t
 end
 
-part21line(nums) = map(n->(n->n*(n+1)/2)(n-floor(mean(nums))),nums)|>sum
+day7part2(nums) = map(n->(n->n*(n+1)/2)(n-floor(mean(nums))),nums)|>sum
 
 sum_to(n) = n*(n+1) / 2
 
