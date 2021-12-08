@@ -1,5 +1,5 @@
-function day_5() 
-  lines = readlines("inputs/05.txt")
+lines = readlines("inputs/05.txt")
+function day_5(lines) 
   grid = zeros(Int64, 1000,1000)
   pairs = []
 
@@ -24,7 +24,7 @@ function day_5()
       end
     end
   end
-  println(count(i -> i > 1, grid))
+  count(i -> i > 1, grid)
 end
 
-day_5()
+println(day_5(lines))

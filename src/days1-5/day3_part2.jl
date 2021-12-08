@@ -1,6 +1,8 @@
-nums = [[parse(Int64, l) for l in line] for line in readlines("inputs/03.txt")]
+nums = [[parse(Int64, l) for l in line] for line in readlines("inputs/1-5/03.txt")]
+lines = readlines("inputs/1-5/03.txt")
 
-function day3(nums)
+function day3(lines)
+  nums = [[parse(UInt8, l) for l in line] for line in lines]
   nums_backup = copy(nums)
   oxygen_vec = 0
   for digit in 1:12
@@ -30,8 +32,11 @@ function day3(nums)
       break
     end
   end
-
   return parse(Int64,join(oxygen_vec),base=2) * parse(Int64,join(co2_vec),base=2)
 end
 
-println(day3(nums))
+# println(day3(nums))
+using BenchmarkTools
+@btime day3(lines)
+
+print(day3(lines))
