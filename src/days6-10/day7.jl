@@ -39,4 +39,3 @@ end
 day7part2(nums) = map(n->(n->n*(n+1)/2)(n-floor(mean(nums))),nums)|>sum
 
 sum_to(n) = n*(n+1) / 2
-
