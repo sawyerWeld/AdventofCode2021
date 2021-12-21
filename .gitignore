@@ -25,4 +25,5 @@ Manifest.toml
 .vscode/settings.json
 
 inputs/*
+inputs/*/*
 video/*
